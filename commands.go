@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
@@ -64,6 +65,12 @@ func assert(err error) {
 }
 
 func doInit(c *cli.Context) {
+	f, err := os.Create("slides.md")
+	assert(err)
+	w := bufio.NewWriter(f)
+	md, _ := Asset("tmpl/slides.md")
+	w.Write(md)
+	w.Flush()
 }
 
 func doUp(c *cli.Context) {
